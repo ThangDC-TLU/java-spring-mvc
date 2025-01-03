@@ -49,6 +49,27 @@ public class UserController {
         return "/admin/user/show";
     }
 
+    @RequestMapping(value = "/admin/user/update/{id}", method = RequestMethod.GET)
+    public String getUpdateUserPage(Model model, @PathVariable Long id) {
+        User currentUser = this.userService.getUserById(id);
+        model.addAttribute("userUpdate", currentUser);
+        return "/admin/user/update";
+    }
+
+    @RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
+    public String updateUser(Model model, @ModelAttribute("userUpdate") User hoidanit) {
+        User currentUser = this.userService.getUserById(hoidanit.getId());
+        if (currentUser != null) {
+            currentUser.setAddress(hoidanit.getAddress());
+            currentUser.setFullName(hoidanit.getFullName());
+            currentUser.setPhone(hoidanit.getPhone());
+
+            this.userService.handelSaveUser(currentUser);
+        }
+        // Sau khi lưu sẽ trả lại url của bảng user
+        return "redirect:/admin/user";
+    }
+
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());

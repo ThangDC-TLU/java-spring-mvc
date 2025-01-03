@@ -35,4 +35,10 @@ public class UserService {
         User user = this.userRepository.findById(id).orElse(null);
         return user;
     }
+
+    public User handelUpdateUser(User user) {
+        User eric = this.userRepository.save(user);
+        System.out.println(eric);
+        return eric;
+    }
 }
