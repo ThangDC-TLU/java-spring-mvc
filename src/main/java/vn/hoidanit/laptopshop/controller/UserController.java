@@ -82,4 +82,20 @@ public class UserController {
         // Sau khi lưu sẽ trả lại url của bảng user
         return "redirect:/admin/user";
     }
+
+    @RequestMapping(value = "/admin/user/delete/{id}", method = RequestMethod.GET)
+    public String getDeleteUserPage(Model model, @PathVariable Long id) {
+        model.addAttribute("id", id);
+        User currentUser = this.userService.getUserById(id);
+        model.addAttribute("userDelete", currentUser);
+        return "/admin/user/delete";
+    }
+
+    @RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
+    public String deleteUser(Model model, @ModelAttribute("userDelete") User hoidanit) {
+        this.userService.handelDeleteUser(hoidanit.getId());
+        // Sau khi lưu sẽ trả lại url của bảng user
+        return "redirect:/admin/user";
+    }
+
 }

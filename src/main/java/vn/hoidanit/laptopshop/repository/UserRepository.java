@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     User save(User hoidanit);
 
+    void deleteById(long id);
+
     List<User> findByEmail(String email);
 
     User findById(long id);
