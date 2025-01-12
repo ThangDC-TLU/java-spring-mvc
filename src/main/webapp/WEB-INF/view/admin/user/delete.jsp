@@ -34,7 +34,9 @@
                         <form:input type="text" class="form-control" path="id"/>
                     </div>
                     <button type="submit" class="btn btn-danger">Confirm</button>
+                    <a href="/admin/user" class="btn btn-primary mx-2">Back</a>
                 </form:form>
+                
 
             </div>
         </div>
