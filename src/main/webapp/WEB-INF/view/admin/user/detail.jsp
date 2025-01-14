@@ -27,27 +27,29 @@
                         <li class="breadcrumb-item active">Users</li>
                     </ol>
                     <div class="container mt-5">
-                        <div class="row">
-                            <div class="col-md-6 col-12 mx-auto">
-                                <h3>Delete a user id = ${id}</h3>
-                                    <hr>
-                                <div class="alert alert-danger" role="alert">
-                                   Are you sure delete user ?
+                      <div class="row">
+                          <div class="col-12 mx-auto">
+                              <div class="d-flex justify-content-between">
+                                  <h3>Detail User With ID = ${user.id}</h3>
+                              </div>
+                              <hr>
+                              
+                              <div class="card" style="width: 60%;">
+                                <div class="card-header">
+                                  User Information
                                 </div>
-                                <form:form action="/admin/user/delete" method="post" modelAttribute="userDelete">
-                                    <!-- Để controller lấy được thông tin xử lý thì cần phải có form:input và path-->
-                                    <div class="mb-3" style="display: none;">
-                                        <label class="form-label">ID</label>
-                                        <form:input type="text" class="form-control" path="id"/>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger">Confirm</button>
-                                    <a href="/admin/user" class="btn btn-primary mx-2">Back</a>
-                                </form:form>
-                                
-                
-                            </div>
-                        </div>
-                
+                                <ul class="list-group list-group-flush">
+                                  <li class="list-group-item">ID: ${user.id}</li>
+                                  <li class="list-group-item">Full Name: ${user.fullName}</li>
+                                  <li class="list-group-item">Email: ${user.email}</li>
+                                  <li class="list-group-item">Phone: ${user.phone}</li>
+                                  <li class="list-group-item">Address: ${user.address}</li>
+                                  <li class="list-group-item">Password: ${user.password}</li>
+                                </ul>
+                              </div>
+                              <a href="/admin/user" class="btn btn-primary mt-2">Back</a>
+                          </div>
+                      </div>
                     </div>
                 </div>
             </main>

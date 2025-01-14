@@ -22,11 +22,14 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Dashboard</h1>
+                    <h1 class="mt-4">Manage Product</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumn-item">
+                            <a href="/admin">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Products</li>
                     </ol>
-                    <div>product</div>
+                    <div>Product</div>
                 </div>
             </main>
             <jsp:include page="../layout/footer.jsp" />
