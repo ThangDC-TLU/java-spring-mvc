@@ -1,12 +1,6 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
-
-import javax.management.relation.Role;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,12 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
 import vn.hoidanit.laptopshop.domain.User;
-import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
@@ -67,18 +58,26 @@ public class UserController {
     @RequestMapping(value = "/admin/user/update/{id}", method = RequestMethod.GET)
     public String getUpdateUserPage(Model model, @PathVariable Long id) {
         User currentUser = this.userService.getUserById(id);
+        String urlAvatar = "/images/avatar/" + currentUser.getAvatar();
         model.addAttribute("userUpdate", currentUser);
+        model.addAttribute("urlAvatar", urlAvatar);
         return "/admin/user/update";
     }
 
-    @RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
-    public String updateUser(Model model, @ModelAttribute("userUpdate") User hoidanit) {
+    @PostMapping("/admin/user/update")
+    public String updateUser(Model model, @ModelAttribute("userUpdate") User hoidanit,
+            @RequestParam("hoidanitFile") MultipartFile file) {
         User currentUser = this.userService.getUserById(hoidanit.getId());
         if (currentUser != null) {
             currentUser.setAddress(hoidanit.getAddress());
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
-
+            currentUser.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
+            if (!file.isEmpty()) {
+                this.uploadService.handelDeleteFile(currentUser.getAvatar());
+                String avatar = this.uploadService.handelSaveUploadFile(file, "avatar");
+                currentUser.setAvatar(avatar);
+            }
             this.userService.handelSaveUser(currentUser);
         }
         // Sau khi lưu sẽ trả lại url của bảng user

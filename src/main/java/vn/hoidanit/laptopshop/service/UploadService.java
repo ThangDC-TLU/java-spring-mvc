@@ -42,4 +42,14 @@ public class UploadService {
         }
         return finalName;
     }
+
+    public void handelDeleteFile(String avatar) {
+        String rootPath = this.servletContext.getRealPath("/resources/images/avatar/") + avatar;
+        File fileDelete = new File(rootPath);
+        if (fileDelete.exists()) {
+            if (fileDelete.delete()) {
+                System.out.println("Delete file success");
+            }
+        }
+    }
 }
