@@ -41,10 +41,14 @@
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Create a product</h3>
+                                            <h3>Update a product</h3>
                                             <hr />
-                                            <form:form method="post" action="/admin/product/create" class="row"
-                                                enctype="multipart/form-data" modelAttribute="newProduct">
+                                            <form:form method="post" action="/admin/product/update" class="row"
+                                                enctype="multipart/form-data" modelAttribute="productUpdate">
+                                                <div class="mb-3" style="display: none;">
+                                                    <label class="form-label">ID</label>
+                                                    <form:input type="text" class="form-control" path="id"/>
+                                                </div>
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <c:set var="errorName">
                                                         <form:errors path="name" cssClass="invalid-feedback"/>
@@ -114,11 +118,12 @@
                                                         accept=".png, .jpg, .jpeg" name="hoidanitFile" />
                                                 </div>
                                                 <div class="col-12 mb-3">
-                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
-                                                        id="avatarPreview" />
+                                                    <img style="max-height: 250px;" alt="avatar preview"
+                                                        id="avatarPreview" src="/images/product/${productUpdate.image}" />
                                                 </div>
                                                 <div class="col-12 mb-5">
-                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                    <button type="submit" class="btn btn-warning">Update</button>
+                                                    <a href="/admin/product" class="btn btn-primary mx-3">Back</a>
                                                 </div>
                                             </form:form>
 
