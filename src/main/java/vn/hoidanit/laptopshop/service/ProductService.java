@@ -22,7 +22,7 @@ public class ProductService {
         return laptopProduct;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> fetchProducts() {
         return this.productRepository.findAll();
     }
 
