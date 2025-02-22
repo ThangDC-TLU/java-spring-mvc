@@ -44,7 +44,7 @@ public class HomePageController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
-        return "/client/auth/register";
+        return "client/auth/register";
     }
 
     @PostMapping("/register")
@@ -58,7 +58,7 @@ public class HomePageController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "/client/auth/register";
+            return "client/auth/register";
         }
 
         // Sử dụng mapper tự viết
@@ -69,12 +69,12 @@ public class HomePageController {
         user.setRole(this.userService.getRoleByName("USER"));
         // save
         this.userService.handelSaveUser(user);
-        return "redirect:/login";
+        return "redirect:login";
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
-        return "/client/auth/login";
+        return "client/auth/login";
     }
 
 }

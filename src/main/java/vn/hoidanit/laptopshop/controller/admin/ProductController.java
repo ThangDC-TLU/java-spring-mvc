@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ProductController {
@@ -38,13 +35,13 @@ public class ProductController {
     public String getProduct(Model model) {
         List<Product> products = this.productService.fetchProducts();
         model.addAttribute("products", products);
-        return "/admin/product/show";
+        return "admin/product/show";
     }
 
     @GetMapping("/admin/product/create")
     public String getCreateProductPage(Model model) {
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/create";
+        return "admin/product/create";
     }
 
     @PostMapping("/admin/product/create")
@@ -58,26 +55,26 @@ public class ProductController {
         }
 
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/create";
+            return "admin/product/create";
         }
         String image = this.uploadService.handelSaveUploadFile(file, "product");
         pr.setImage(image);
         this.productService.handelSaveProduct(pr);
-        return "redirect:/admin/product";
+        return "redirect:admin/product";
     }
 
     @GetMapping("/admin/product/{id}")
     public String getProductDetail(Model model, @PathVariable Long id) {
         Product pr = this.productService.fetchProductById(id).get();
         model.addAttribute("product", pr);
-        return "/admin/product/detail";
+        return "admin/product/detail";
     }
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProduct(Model model, @PathVariable Long id) {
         Product pr = this.productService.fetchProductById(id).get();
         model.addAttribute("productUpdate", pr);
-        return "/admin/product/update";
+        return "admin/product/update";
     }
 
     @PostMapping("/admin/product/update")
@@ -92,7 +89,7 @@ public class ProductController {
                 pr.setImage(existingProduct.getImage());
             }
             model.addAttribute("productUpdate", pr);
-            return "/admin/product/update";
+            return "admin/product/update";
         }
 
         Optional<Product> optionalProduct = this.productService.fetchProductById(pr.getId());
@@ -120,20 +117,20 @@ public class ProductController {
             this.productService.handelSaveProduct(currentProduct);
         }
 
-        return "redirect:/admin/product";
+        return "redirect:admin/product";
     }
 
     @GetMapping("/admin/product/delete/{id}")
     public String getDeleteProductPage(Model model, @PathVariable Long id) {
         Product pr = this.productService.fetchProductById(id).get();
         model.addAttribute("productDelete", pr);
-        return "/admin/product/delete";
+        return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/delete")
     public String deleteProduct(@ModelAttribute("productDelete") Product pr) {
         this.productService.handelDeleteProduct(pr.getId());
-        return "redirect:/admin/product";
+        return "redirect:admin/product";
     }
 
 }

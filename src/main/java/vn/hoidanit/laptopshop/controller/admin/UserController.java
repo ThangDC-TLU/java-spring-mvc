@@ -34,28 +34,29 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        List<User> arrUsers = this.userService.getAllUsersByEmail("dinhcaothang08102004@gmail.com");
-        System.out.println(arrUsers);
+    // @RequestMapping("/")
+    // public String getHomePage(Model model) {
+    // List<User> arrUsers =
+    // this.userService.getAllUsersByEmail("dinhcaothang08102004@gmail.com");
+    // System.out.println(arrUsers);
 
-        model.addAttribute("eric", "test");
-        model.addAttribute("hoidanit", "from controller with model");
-        return "hello";
-    }
+    // model.addAttribute("eric", "test");
+    // model.addAttribute("hoidanit", "from controller with model");
+    // return "hello";
+    // }
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users1", users);
-        return "/admin/user/show";
+        return "admin/user/show";
     }
 
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.GET)
     public String getUserDetailPage(Model model, @PathVariable Long id) {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
-        return "/admin/user/detail";
+        return "admin/user/detail";
     }
 
     @RequestMapping(value = "/admin/user/update/{id}", method = RequestMethod.GET)
@@ -64,7 +65,7 @@ public class UserController {
         String urlAvatar = "/images/avatar/" + currentUser.getAvatar();
         model.addAttribute("userUpdate", currentUser);
         model.addAttribute("urlAvatar", urlAvatar);
-        return "/admin/user/update";
+        return "admin/user/update";
     }
 
     @PostMapping("/admin/user/update")
@@ -84,13 +85,13 @@ public class UserController {
             this.userService.handelSaveUser(currentUser);
         }
         // Sau khi lưu sẽ trả lại url của bảng user
-        return "redirect:/admin/user";
+        return "redirect:admin/user";
     }
 
     @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
-        return "/admin/user/create";
+        return "admin/user/create";
     }
 
     @PostMapping("/admin/user/create")
@@ -106,7 +107,7 @@ public class UserController {
         }
 
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
 
         String avatar = this.uploadService.handelSaveUploadFile(file, "avatar");
@@ -116,7 +117,7 @@ public class UserController {
         hoidanit.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
         this.userService.handelSaveUser(hoidanit);
         // Sau khi lưu sẽ trả lại url của bảng user
-        return "redirect:/admin/user";
+        return "redirect:admin/user";
     }
 
     @RequestMapping(value = "/admin/user/delete/{id}", method = RequestMethod.GET)
@@ -124,14 +125,14 @@ public class UserController {
         model.addAttribute("id", id);
         User currentUser = this.userService.getUserById(id);
         model.addAttribute("userDelete", currentUser);
-        return "/admin/user/delete";
+        return "admin/user/delete";
     }
 
     @RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
     public String deleteUser(Model model, @ModelAttribute("userDelete") User hoidanit) {
         this.userService.handelDeleteUser(hoidanit.getId());
         // Sau khi lưu sẽ trả lại url của bảng user
-        return "redirect:/admin/user";
+        return "redirect:admin/user";
     }
 
 }
