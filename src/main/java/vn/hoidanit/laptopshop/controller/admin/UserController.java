@@ -85,7 +85,7 @@ public class UserController {
             this.userService.handelSaveUser(currentUser);
         }
         // Sau khi lưu sẽ trả lại url của bảng user
-        return "redirect:admin/user";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/admin/user/create")
@@ -117,7 +117,7 @@ public class UserController {
         hoidanit.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
         this.userService.handelSaveUser(hoidanit);
         // Sau khi lưu sẽ trả lại url của bảng user
-        return "redirect:admin/user";
+        return "redirect:/admin/user";
     }
 
     @RequestMapping(value = "/admin/user/delete/{id}", method = RequestMethod.GET)
@@ -132,7 +132,7 @@ public class UserController {
     public String deleteUser(Model model, @ModelAttribute("userDelete") User hoidanit) {
         this.userService.handelDeleteUser(hoidanit.getId());
         // Sau khi lưu sẽ trả lại url của bảng user
-        return "redirect:admin/user";
+        return "redirect:/admin/user";
     }
 
 }
