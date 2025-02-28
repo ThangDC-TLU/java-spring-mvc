@@ -15,7 +15,7 @@ import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
-import vn.hoidanit.laptopshop.repository.OrderDeltailRepository;
+import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
 
@@ -26,11 +26,11 @@ public class ProductService {
     private final CartDetailRepository cartDetailRepository;
     private final UserService userService;
     private final OrderRepository orderRepository;
-    private final OrderDeltailRepository orderDeltailRepository;
+    private final OrderDetailRepository orderDeltailRepository;
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
             CartDetailRepository cartDetailRepository, UserService userService, OrderRepository orderRepository,
-            OrderDeltailRepository orderDeltailRepository) {
+            OrderDetailRepository orderDeltailRepository) {
         this.productRepository = productRepository;
         this.cartDetailRepository = cartDetailRepository;
         this.cartRepository = cartRepository;

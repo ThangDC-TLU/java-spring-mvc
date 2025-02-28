@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import vn.hoidanit.laptopshop.domain.OrderDetail;
 
 @Repository
-public interface OrderDeltailRepository extends JpaRepository<OrderDetail, Long> {
+public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
 
 }
