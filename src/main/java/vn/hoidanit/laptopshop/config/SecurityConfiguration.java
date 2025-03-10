@@ -65,7 +65,7 @@ public class SecurityConfiguration {
                 .permitAll()
 
                 .requestMatchers("/", "/login", "/product/**",
-                        "/client/**", "/css/**", "/js/**", "/images/**")
+                        "/client/**", "/css/**", "/js/**", "/images/**", "/register")
                 .permitAll()
 
                 .requestMatchers("/admin/**").hasRole("ADMIN")
