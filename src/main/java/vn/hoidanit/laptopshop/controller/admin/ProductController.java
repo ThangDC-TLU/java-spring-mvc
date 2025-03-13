@@ -78,7 +78,7 @@ public class ProductController {
         }
         String image = this.uploadService.handelSaveUploadFile(file, "product");
         pr.setImage(image);
-        this.productService.handelSaveProduct(pr);
+        this.productService.createProduct(pr);
         return "redirect:/admin/product";
     }
 
@@ -133,7 +133,7 @@ public class ProductController {
                 currentProduct.setImage(image);
             }
 
-            this.productService.handelSaveProduct(currentProduct);
+            this.productService.createProduct(currentProduct);
         }
 
         return "redirect:/admin/product";
@@ -148,7 +148,7 @@ public class ProductController {
 
     @PostMapping("/admin/product/delete")
     public String deleteProduct(@ModelAttribute("productDelete") Product pr) {
-        this.productService.handelDeleteProduct(pr.getId());
+        this.productService.deleteProduct(pr.getId());
         return "redirect:/admin/product";
     }
 
